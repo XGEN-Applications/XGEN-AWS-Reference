@@ -1,0 +1,58 @@
+# Welcome to Serverless!
+# For full config options, check the docs:
+#    docs.serverless.com
+
+
+service: api
+
+provider:
+  name: aws
+  runtime: nodejs8.10
+
+# you can overwrite defaults here
+stage: dev
+region: us-east-1
+
+# serverless framework plugins
+# offline plugin is for local test
+plugins:
+  - serverless-offline
+
+functions:
+
+  register:
+    handler: api/user/register.handler
+    events:
+     - http:
+        path: users/register
+        method: post
+        cors: true
+        integration: lambda
+
+  login:
+    handler: api/user/login.handler
+    events:
+     - http:
+        path: users/login
+        method: post
+        cors: true
+        integration: lambda
+
+  logout:
+    handler: api/user/logout.handler
+    events:
+     - http:
+        path: users/logout
+        method: post
+        cors: true
+        integration: lambda        
+
+  current:
+    handler: api/user/current.handler
+    events:
+     - http:
+        path: users/current
+        method: get
+        cors: true
+        integration: lambda        
+
