@@ -22,7 +22,7 @@ const verify = async (credentials) => {
     }
 
     const user = results[0];
-    const isValid =  await bcrypt.compare(password, user.PWD);
+    const isValid = bcrypt.compareSync(password, user.PWD);
 
     if(!isValid) {
       throw { statusCode: 401, error: 'invalid password' };
