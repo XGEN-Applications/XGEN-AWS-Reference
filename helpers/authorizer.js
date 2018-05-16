@@ -21,21 +21,20 @@ const generatePolicy = (principalId, effect, resource) => {
 
 const unathorized = { statusCode: 403, error: 'unauthorized'}
 
-const authorize = (event, context, cb) => {
+const handler = (event, context, cb) => {
   
   try {
-
-    const { token } = event;
+    const token = event.authorizationToken;
 
     if(!token) {
       throw unathorized;
     }
   
-    jwt.verify(token, JWT_SECRET, (err, user) => {
+    jwt.verify(token, JWT_SECRET, (err, decoded) => {
       if(err) {
         throw unathorized; 
       }
-      return cb(null, generatePolicy(user.id, 'Allow', event.methodArn))
+      return cb(null, generatePolicy(decoded.id, 'Allow', event.methodArn))
     });
 
   }
@@ -44,4 +43,4 @@ const authorize = (event, context, cb) => {
   }
 };
 
-module.exports = { authorize }
+module.exports = { handler }

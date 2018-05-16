@@ -28,7 +28,7 @@ const verify = async (credentials) => {
       throw { statusCode: 401, error: 'invalid password' };
     }
 
-    const token = jwt.sign({ id: user.id }, JWT_SECRET);
+    const token = jwt.sign({ id: user.UserID }, JWT_SECRET);
     return { token };
 
   } catch(err) {

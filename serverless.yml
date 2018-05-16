@@ -47,12 +47,17 @@ functions:
         cors: true
         integration: lambda        
 
+  authorizer:
+    handler: helpers/authorizer.handler
+    cors: true
+
   current:
     handler: api/user/current.handler
     events:
      - http:
         path: users/current
         method: get
+        authorizer: authorizer
         cors: true
         integration: lambda        
 
