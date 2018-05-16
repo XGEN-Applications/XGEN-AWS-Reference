@@ -1,5 +1,5 @@
-const register = require('../helpers/add_user');
-const db = require('../helpers/db');
+const register = require('../../helpers/add_user');
+const db = require('../../helpers/db');
 
 const validUser = {
   username: 'test@example.com',

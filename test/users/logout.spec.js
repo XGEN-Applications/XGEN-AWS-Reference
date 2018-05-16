@@ -1,8 +1,8 @@
-const register = require('../helpers/add_user');
-const login = require('../helpers/verify_user');
-const logout = require('../helpers/logout');
-const db = require('../helpers/db');
-const { validUser, invalidToken } = require('./models');
+const register = require('../../helpers/add_user');
+const login = require('../../helpers/verify_user');
+const logout = require('../../helpers/logout');
+const db = require('../../helpers/db');
+const { validUser, invalidToken } = require('../models');
 let validToken = '';
 
 beforeAll(async () => {

@@ -61,3 +61,32 @@ functions:
         cors: true
         integration: lambda        
 
+  projects:
+    handler: api/project/get.handler
+    events:
+     - http:
+        path: projects
+        method: get
+        authorizer: authorizer
+        cors: true
+        integration: lambda  
+
+  add-projects:
+    handler: api/project/add.handler
+    events:
+     - http:
+        path: projects
+        method: post
+        authorizer: authorizer
+        cors: true
+        integration: lambda  
+    
+  delete-projects:
+    handler: api/project/delete.handler
+    events:
+     - http:
+        path: projects
+        method: delete
+        authorizer: authorizer
+        cors: true
+        integration: lambda  
