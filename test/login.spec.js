@@ -1,21 +1,8 @@
 const register = require('../helpers/add_user');
 const login = require('../helpers/verify_user');
 const db = require('../helpers/db');
+const { validUser, invalidEmail, invalidPassword } = require('./models');
 
-const validUser = {
-  username: 'test@example.com',
-  password: 'coolpass'
-}
-
-const invalidEmail = {
-  username: '_test@example.com',
-  password: 'coolpass'
-}
-
-const invalidPassword = {
-  username: 'test@example.com',
-  password: 'sdasad'
-}
 
 beforeAll(() => register(validUser));
 afterAll(() => {
