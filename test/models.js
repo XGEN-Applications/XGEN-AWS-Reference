@@ -19,19 +19,21 @@ const invalidPassword = {
 const invalidToken = 'aaabbbcccdddeeefffggg';
 
 // projects
-const validProject = {
-  paramObjectiveID: 1,
-  paramProjectTitle: 'Test project title',
-  paramProjectDesc: 'Description with more than a few words.',
-  paramProjectStartDate: new Date().toISOString().slice(0, 19).replace('T', ' '),
-  paramProjectEndDate: new Date().toISOString().slice(0, 19).replace('T', ' '),
-  paramProjectStatusID: null,
-  paramCreateDate: new Date().toISOString().slice(0, 19).replace('T', ' '),
-  paramUpdateDate: new Date().toISOString().slice(0, 19).replace('T', ' '),
-  paramCreateBy: 1, 
-  paramUpdateBy: 1, 
-  paramSortOrder: null, 
-  paramOrgID: 1
+const validProject = { 
+	ProjectID: 6,
+  ObjectiveID: 1,
+	ProjectTitle: 'Test project title',
+	ProjectDesc: 'Description with more than a few words.',
+	ProjectStartDate: new Date().toISOString().slice(0, 19).replace('T', ' '),
+	ProjectEndDate: new Date().toISOString().slice(0, 19).replace('T', ' '),
+	ProjectStatusID: null,
+	CreateDate: new Date().toISOString().slice(0, 19).replace('T', ' '),
+	UpdateDate: new Date().toISOString().slice(0, 19).replace('T', ' '),
+	CreateBy: 1,
+	UpdateBy: 1,
+	SortOrder: null,
+	OrgID: 1
 }
+
 
 module.exports = { validUser, invalidEmail, invalidPassword, invalidToken, validProject };

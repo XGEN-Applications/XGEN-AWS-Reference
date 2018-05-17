@@ -115,16 +115,11 @@ functions:
         integration: lambda  
 
   # update single project using CALL usp_Projects_Update() stored procedure    
-  # id is a path parameter that must be provided
   update-project:
     handler: api/project/update.handler
     events:
      - http:
-        path: projects/{id}
-        request:
-          parameters:
-            paths:
-              id: true
+        path: projects
         method: put
         authorizer: authorizer
         cors: true

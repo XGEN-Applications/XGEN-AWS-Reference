@@ -18,36 +18,36 @@ const get = async (id) => {
 const add = async (project) => {
 
   const {
-    paramObjectiveID,
-    paramProjectTitle,
-    paramProjectDesc,
-    paramProjectStartDate,
-    paramProjectEndDate,
-    paramProjectStatusID,
-    paramCreateDate,
-    paramUpdateDate,
-    paramCreateBy, 
-    paramUpdateBy, 
-    paramSortOrder, 
-    paramOrgID
+    ObjectiveID,
+    ProjectTitle,
+    ProjectDesc,
+    ProjectStartDate,
+    ProjectEndDate,
+    ProjectStatusID,
+    CreateDate,
+    UpdateDate,
+    CreateBy, 
+    UpdateBy, 
+    SortOrder, 
+    OrgID
   } = project;
 
   try {
     const result = await db.query(
       `CALL usp_Projects_Add(
         @paramProjectID,
-        ${paramObjectiveID},
-        '${paramProjectTitle}',
-        '${paramProjectDesc}',
-        '${paramProjectStartDate}',
-        '${paramProjectEndDate}',
-        ${paramProjectStatusID},
-        '${paramCreateDate}',
-        '${paramUpdateDate}',
-        ${paramCreateBy},
-        ${paramUpdateBy},
-        ${paramSortOrder},
-        ${paramOrgID}
+        ${ObjectiveID},
+        '${ProjectTitle}',
+        '${ProjectDesc}',
+        '${ProjectStartDate}',
+        '${ProjectEndDate}',
+        ${ProjectStatusID},
+        '${CreateDate}',
+        '${UpdateDate}',
+        ${CreateBy},
+        ${UpdateBy},
+        ${SortOrder},
+        ${OrgID}
       );
       
       select @paramProjectID;    
@@ -67,17 +67,54 @@ const add = async (project) => {
 
 }
 
-
 const update = async (project) => {
+  const {
+    ProjectID,
+    ObjectiveID,
+    ProjectTitle,
+    ProjectDesc,
+    ProjectStartDate,
+    ProjectEndDate,
+    ProjectStatusID,
+    CreateDate,
+    UpdateDate,
+    CreateBy, 
+    UpdateBy, 
+    SortOrder, 
+    OrgID
+  } = project;
+
+  if(!ProjectID) throw {statusCode: 400, error: 'you must provide projectid'};
 
   try {
-    await db.query(`CALL usp_Projects_Update()`);
+    const result = await db.query(
+      `CALL usp_Projects_Update(
+        ${ProjectID},
+        ${ObjectiveID},
+        '${ProjectTitle}',
+        '${ProjectDesc}',
+        '${ProjectStartDate}',
+        '${ProjectEndDate}',
+        ${ProjectStatusID},
+        '${CreateDate}',
+        '${UpdateDate}',
+        ${CreateBy},
+        ${UpdateBy},
+        ${SortOrder},
+        ${OrgID}
+      );
+    `);
+
     return 'success';
+
   } catch(err) {
+
+    console.log(err)
     return {
       statusCode: err.statusCode || 500, 
-      error: 'server error'
+      error: err.error || 'server error'
     }
+
   }
 
 }
