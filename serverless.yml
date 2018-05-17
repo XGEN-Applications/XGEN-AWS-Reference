@@ -140,3 +140,16 @@ functions:
         authorizer: authorizer
         cors: true
         integration: lambda  
+
+  # route to search projects
+  # pass search paramters inside body request
+  # search projects using CALL usp_Projects_Search() stored procedure
+  search-projects:
+    handler: api/project/search.handler
+    events:
+     - http:
+        path: projects/search
+        method: post
+        authorizer: authorizer
+        cors: true
+        integration: lambda          
