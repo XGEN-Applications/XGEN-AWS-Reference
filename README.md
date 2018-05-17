@@ -43,6 +43,23 @@ Note: Same rules for stage param as for deployment.
 - test tool used: [Jest](https://facebook.github.io/jest)
 - run in terminal `npm test`
 
+### LIST OF TOOLS AND FRAMEWORKS USED
+
+- [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/installing.html)
+- [NodeJS](https://nodejs.org/en/)
+- [Serverless](https://serverless.com/)
+- [Jest](https://facebook.github.io/jest/)
 
 
+### PROJECT ORGANIZATION
 
+- `serverless.yml` contains serverless framework configuration. All API's and other resources used are configured in this file. 
+
+- `api` contains API Gateway Lambda Endpoints 
+- `config` configuration settings
+- `helpers` shared methods and code behind API's
+- `test` unit tests
+
+- `./helpers/db.js` mysql/aurora connection pool shared by all lambdas
+- `./helpers/authorizer.js` functions that handles authorization for Lambda's, based on user JWT session 
+- `./helpers/parse_response` Lambda API requires that all response objects contains JSON with statusCode and body. It returns formated response with statusCode, header and body that contains stringified data object passed to the function. 
