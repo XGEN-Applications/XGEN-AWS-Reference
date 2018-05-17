@@ -51,7 +51,7 @@ Note: Same rules for stage param as for deployment.
 - [Jest](https://facebook.github.io/jest/)
 
 
-### PROJECT ORGANIZATION
+### PROJECT FOLDER/FILES ORGANIZATION
 
 - `serverless.yml` contains serverless framework configuration. All API's and other resources used are configured in this file. 
 
@@ -61,5 +61,5 @@ Note: Same rules for stage param as for deployment.
 - `test` unit tests
 
 - `./helpers/db.js` mysql/aurora connection pool shared by all lambdas
-- `./helpers/authorizer.js` functions that handles authorization for Lambda's, based on user JWT session 
+- `./helpers/authorizer.js` functions that handles authorization based on user JWT session 
 - `./helpers/parse_response` Lambda API requires that all response objects contains JSON with statusCode and body. It returns formated response with statusCode, header and body that contains stringified data object passed to the function. 
