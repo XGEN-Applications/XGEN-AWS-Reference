@@ -21,21 +21,6 @@ const search = async (terms) => {
 	const CreateDate = null;
 	const UpdateDate = null;
 
-  console.log(      `CALL usp_Projects_Search(
-    ${ProjectID},
-    ${ObjectiveID},
-    '${ProjectTitle}',
-    '${ProjectDesc}',
-    '${ProjectStartDate}',
-    '${ProjectEndDate}',
-    ${ProjectStatusID},
-    null,
-    null,
-    ${CreateBy},
-    ${UpdateBy},
-    ${SortOrder},
-    ${OrgID}
-  );`)
   try {
     const result = await db.query(
       `CALL usp_Projects_Search(
