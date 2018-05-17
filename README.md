@@ -18,7 +18,8 @@
 
 ### configuration 
 
-- all configuration options can be found inside config/config.js file, which is added to .gitignore file in order to avoid commiting secrets to the repository
+- all configuration options can be found inside config/config.js file, which is added to `.gitignore` file in order to avoid commiting secrets to the repository
+- `./config/sample.config.js` file is provided with all required and available settings. add `./config/config.js` file to the same folder, copy configuration from `sample.config.js`, then update values with your own settings. Once again, `config.js` has been added to `.gitignore`, it will not be commited to the git repository. 
 
 ### deploy to aws
 
