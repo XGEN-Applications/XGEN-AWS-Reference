@@ -1,5 +1,5 @@
-const register = require('../../helpers/add_user');
-const login = require('../../helpers/verify_user');
+const register = require('../../helpers/user/add_user');
+const login = require('../../helpers/user/verify_user');
 const db = require('../../helpers/db');
 const { validUser, invalidEmail, invalidPassword } = require('../models');
 

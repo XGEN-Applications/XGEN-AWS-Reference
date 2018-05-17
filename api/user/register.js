@@ -1,7 +1,7 @@
 'use strict';
 
 const response = require('../../helpers/parse_response');
-const register = require('../../helpers/add_user');
+const register = require('../../helpers/user/add_user');
 
 const handler = async (event, context) => {
 

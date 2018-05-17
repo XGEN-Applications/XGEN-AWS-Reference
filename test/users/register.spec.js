@@ -1,4 +1,4 @@
-const register = require('../../helpers/add_user');
+const register = require('../../helpers/user/add_user');
 const db = require('../../helpers/db');
 
 const validUser = {

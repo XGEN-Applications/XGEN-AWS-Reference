@@ -1,6 +1,6 @@
-const getUser = require('../../helpers/get_user');
-const register = require('../../helpers/add_user');
-const login = require('../../helpers/verify_user');
+const getUser = require('../../helpers/user/get_user');
+const register = require('../../helpers/user/add_user');
+const login = require('../../helpers/user/verify_user');
 const db = require('../../helpers/db');
 const { validUser } = require('../models');
 const { JWT_SECRET } = require('../../config/config');

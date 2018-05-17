@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const db = require('./db');
+const db = require('../db');
 const util = require('util');
 const { JWT_SECRET } = require('../config/config');
 

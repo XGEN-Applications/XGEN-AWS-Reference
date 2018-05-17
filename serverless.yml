@@ -67,7 +67,7 @@ functions:
      - http:
         path: projects
         method: get
-        authorizer: authorizer
+        # authorizer: authorizer
         cors: true
         integration: lambda  
 
