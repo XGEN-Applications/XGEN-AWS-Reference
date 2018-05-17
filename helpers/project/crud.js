@@ -86,7 +86,7 @@ const update = async (project) => {
 const deleteProject = async (id) => {
 
   try {
-    await db.query(`CALL usp_Projects_Delete()`);
+    await db.query(`CALL usp_Projects_Delete(${id})`);
     return 'success';
   } catch(err) {
     return {

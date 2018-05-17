@@ -5,8 +5,15 @@ const { deleteProject } = require('../../helpers/project/crud');
 const handler = async (event, context) => {
 
   context.callbackWaitsForEmptyEventLoop = false;
-
-  return response(501, 'not implemented');
+  const { id } = event.path;
+  try {
+    if(!id) throw {statusCode: 400, error: 'you must provide id'};
+    const data = await deleteProject(id);
+    return response(200, data);
+  } catch(err) {
+    const { statusCode, error } = err;   
+    return response(statusCode || 500, error || 'server error');
+  }
 
 };
 
