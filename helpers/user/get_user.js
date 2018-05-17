@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 const db = require('../db');
 const util = require('util');
-const { JWT_SECRET } = require('../config/config');
+const { JWT_SECRET } = require('../../config/config');
 
 const current = async (id) => {
 

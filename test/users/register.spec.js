@@ -34,7 +34,7 @@ const invalidLastName = {
   firstName: 'Valid',
 }
 
-afterAll(() => db.disconnect());
+afterAll(async () => await db.disconnect());
 
 test('register valid user', async () => {
   const result = await register(validUser);

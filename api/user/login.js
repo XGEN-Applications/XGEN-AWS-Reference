@@ -10,11 +10,12 @@ const handler = async (event, context) => {
     const user = event.body;
     const { statusCode, error, token } = await verify(user);
     if(error) throw { statusCode, error };
+    if(!token) throw 'login failed';
     return response(200, { token });
   }
   catch (err) {
     const { statusCode, error } = err;   
-    return response(statusCode, error);
+    return response(statusCode || 401, error || 'login failed');
   }
 
 };

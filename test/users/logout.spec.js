@@ -6,14 +6,14 @@ const { validUser, invalidToken } = require('../models');
 let validToken = '';
 
 beforeAll(async () => {
-    const registerResult = await register(validUser);
-    const response = await login(validUser);
-    validToken = response.token;
+  const registerResult = await register(validUser);
+  const response = await login(validUser);
+  validToken = response.token;
 });
 
-afterAll(() => {
-  db.query(`DELETE FROM Users WHERE Email='test@example.com'`);
-  db.disconnect()
+afterAll(async () => {
+  await db.query(`DELETE FROM Users WHERE Email='test@example.com'`);
+  await db.disconnect();
 });
 
 test('success logout', async () => {

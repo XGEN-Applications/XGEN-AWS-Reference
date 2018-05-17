@@ -6,10 +6,11 @@ const util = require('util');
 // this will maintain connection pool for the entire environment
 const pool = mysql.createPool(DB);
 pool.query = util.promisify(pool.query);
+pool.end = util.promisify(pool.end);
 // connect, getConnection, query => all in one
 const query = async query => await pool.query(query);
 
 // close pool gracefully 
-const disconnect = () => pool.end();
+const disconnect = async () => await pool.end();
 
 module.exports = { query, disconnect };

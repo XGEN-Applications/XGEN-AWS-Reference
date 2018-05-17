@@ -4,10 +4,10 @@ const db = require('../../helpers/db');
 const { validUser, invalidEmail, invalidPassword } = require('../models');
 
 
-beforeAll(() => register(validUser));
-afterAll(() => {
-  db.query(`DELETE FROM Users WHERE Email='test@example.com'`);
-  db.disconnect()
+beforeAll(async () => await register(validUser));
+afterAll(async () => {
+  await db.query(`DELETE FROM Users WHERE Email='test@example.com'`);
+  await db.disconnect();  
 });
 
 test('success login', async () => {

@@ -14,9 +14,9 @@ beforeAll(async () => {
   id = decoded.id;
 });
 
-afterAll(() => {
-  db.query(`DELETE FROM Users WHERE Email='test@example.com'`);
-  db.disconnect()
+afterAll(async () => {
+  await db.query(`DELETE FROM Users WHERE Email='test@example.com'`);
+  await db.disconnect();
 });
 
 test('get user data', async () => {
