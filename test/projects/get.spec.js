@@ -1,5 +1,4 @@
 const { get } = require('../../helpers/project/crud');
-const register = require('../../helpers/user/add_user');
 const db = require('../../helpers/db');
 
 afterAll(async () => {

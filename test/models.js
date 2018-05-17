@@ -1,3 +1,4 @@
+// users
 const validUser = {
   username: 'test@example.com',
   password: 'coolpass',
@@ -17,4 +18,20 @@ const invalidPassword = {
 
 const invalidToken = 'aaabbbcccdddeeefffggg';
 
-module.exports = { validUser, invalidEmail, invalidPassword, invalidToken };
+// projects
+const validProject = {
+  paramObjectiveID: 1,
+  paramProjectTitle: 'Test project title',
+  paramProjectDesc: 'Description with more than a few words.',
+  paramProjectStartDate: new Date().toISOString().slice(0, 19).replace('T', ' '),
+  paramProjectEndDate: new Date().toISOString().slice(0, 19).replace('T', ' '),
+  paramProjectStatusID: null,
+  paramCreateDate: new Date().toISOString().slice(0, 19).replace('T', ' '),
+  paramUpdateDate: new Date().toISOString().slice(0, 19).replace('T', ' '),
+  paramCreateBy: 1, 
+  paramUpdateBy: 1, 
+  paramSortOrder: null, 
+  paramOrgID: 1
+}
+
+module.exports = { validUser, invalidEmail, invalidPassword, invalidToken, validProject };

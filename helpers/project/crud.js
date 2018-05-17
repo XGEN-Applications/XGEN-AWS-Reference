@@ -32,13 +32,36 @@ const add = async (project) => {
   } = project;
 
   try {
-    const result = await db.query(`CALL PlanHuddleProd.usp_Projects_Add()`);
-    return 'success';
+    const result = await db.query(
+      `CALL usp_Projects_Add(
+        @paramProjectID,
+        ${paramObjectiveID},
+        '${paramProjectTitle}',
+        '${paramProjectDesc}',
+        '${paramProjectStartDate}',
+        '${paramProjectEndDate}',
+        ${paramProjectStatusID},
+        '${paramCreateDate}',
+        '${paramUpdateDate}',
+        ${paramCreateBy},
+        ${paramUpdateBy},
+        ${paramSortOrder},
+        ${paramOrgID}
+      );
+      
+      select @paramProjectID;    
+    `);
+
+    return { ProjectID: result[1][0]['@paramProjectID']};
+
   } catch(err) {
+
+    console.log(err)
     return {
       statusCode: err.statusCode || 500, 
       error: 'server error'
     }
+
   }
 
 }
