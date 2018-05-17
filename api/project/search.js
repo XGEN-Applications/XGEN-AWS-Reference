@@ -5,8 +5,15 @@ const { search } = require('../../helpers/project/search');
 const handler = async (event, context) => {
 
   context.callbackWaitsForEmptyEventLoop = false;
-
-  return response(501, 'not implemented');
+  const terms = event.body;
+  try {
+    const data = await search(terms);
+    return response(200, data);
+  } catch(err) {
+    console.log(err)
+    const { statusCode, error } = err;   
+    return response(statusCode || 500, error || 'server error');
+  }
 
 };
 
