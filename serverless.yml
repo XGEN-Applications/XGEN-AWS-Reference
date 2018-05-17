@@ -5,11 +5,15 @@
 
 service: api
 
+# environment setup
+# cloud provider name
+# runtime: nodejs version 8.10 (latest version)
 provider:
   name: aws
   runtime: nodejs8.10
 
 # you can overwrite defaults here
+# stage dev as default but can be overriden with sls deploy --stage [stage name]
 stage: dev
 region: us-east-1
 
@@ -18,8 +22,11 @@ region: us-east-1
 plugins:
   - serverless-offline
 
+# lambda functions
+
 functions:
 
+  # register user
   register:
     handler: api/user/register.handler
     events:
@@ -29,6 +36,7 @@ functions:
         cors: true
         integration: lambda
 
+  # login user, return token
   login:
     handler: api/user/login.handler
     events:
@@ -38,6 +46,7 @@ functions:
         cors: true
         integration: lambda
 
+  # logout user - terminate server session
   logout:
     handler: api/user/logout.handler
     events:
@@ -47,10 +56,11 @@ functions:
         cors: true
         integration: lambda        
 
+  # private lambda authorizer function, not published on API gateway
   authorizer:
     handler: helpers/authorizer.handler
-    cors: true
 
+  # get currenly logged in user
   current:
     handler: api/user/current.handler
     events:
@@ -61,17 +71,40 @@ functions:
         cors: true
         integration: lambda        
 
-  projects:
+  # route to get single project
+  # id is a path param
+  # get single project using CALL usp_Projects_Get() stored procedure
+  get-project:
+    handler: api/project/get.handler
+    events:
+     - http:
+        path: projects/{id}
+        request:
+          parameters:
+            paths:
+              id: true
+        method: get
+        authorizer: authorizer
+        cors: true
+        integration: lambda  
+
+  # route to get all projects
+  # shares the same handler with single project
+  # if id is provided then single project will be returned
+  # else all projects will be returned
+  # get all projects using CALL usp_Projects_GetAll() stored procedure
+  get-all-projects:
     handler: api/project/get.handler
     events:
      - http:
         path: projects
         method: get
-        # authorizer: authorizer
+        authorizer: authorizer
         cors: true
         integration: lambda  
 
-  add-projects:
+  # add single project using CALL usp_Projects_Add() stored procedure
+  add-project:
     handler: api/project/add.handler
     events:
      - http:
@@ -80,12 +113,34 @@ functions:
         authorizer: authorizer
         cors: true
         integration: lambda  
-    
-  delete-projects:
+
+  # update single project using CALL usp_Projects_Update() stored procedure    
+  # id is a path parameter that must be provided
+  update-project:
+    handler: api/project/update.handler
+    events:
+     - http:
+        path: projects/{id}
+        request:
+          parameters:
+            paths:
+              id: true
+        method: put
+        authorizer: authorizer
+        cors: true
+        integration: lambda          
+
+  # delete single project using CALL usp_Projects_Delete() stored procedure    
+  # id is a path parameter that must be provided
+  delete-project:
     handler: api/project/delete.handler
     events:
      - http:
-        path: projects
+        path: projects/{id}
+        request:
+          parameters:
+            paths:
+              id: true
         method: delete
         authorizer: authorizer
         cors: true

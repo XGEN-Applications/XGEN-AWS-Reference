@@ -5,8 +5,9 @@ const { get } = require('../../helpers/project/crud');
 const handler = async (event, context) => {
 
   context.callbackWaitsForEmptyEventLoop = false;
+  const { id } = event.path;
   try {
-    const data = await get();
+    const data = await get(id);
     return response(200, data);
   } catch(err) {
     const { statusCode, error } = err;   

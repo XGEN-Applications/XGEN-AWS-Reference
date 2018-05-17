@@ -1,9 +1,10 @@
 const db = require('../db');
 
-const get = async () => {
+const get = async (id) => {
 
   try {
-    const result = await db.query(`CALL PlanHuddleProd.usp_Projects_GetAll()`);
+    // if ID return single project, else return all projects
+    const result = id ? await db.query(`CALL usp_Projects_Get(${id})`) : await db.query(`CALL usp_Projects_GetAll()`);;
     return !!result.length ? result[0] : [];
   } catch(err) {
     return {
@@ -70,7 +71,7 @@ const add = async (project) => {
 const update = async (project) => {
 
   try {
-    await db.query(`CALL PlanHuddleProd.usp_Projects_Update()`);
+    await db.query(`CALL usp_Projects_Update()`);
     return 'success';
   } catch(err) {
     return {
@@ -85,7 +86,7 @@ const update = async (project) => {
 const deleteProject = async (id) => {
 
   try {
-    await db.query(`CALL PlanHuddleProd.usp_Projects_Delete()`);
+    await db.query(`CALL usp_Projects_Delete()`);
     return 'success';
   } catch(err) {
     return {
