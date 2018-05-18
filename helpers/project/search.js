@@ -3,7 +3,7 @@ const db = require('../db');
 const search = async (terms) => {
 	// null are inital value
 	// if argument is not passed then default value is null 
-	const {
+	let {
 		ProjectID = null,
 		ObjectiveID = null,
     ProjectTitle = null,
@@ -21,15 +21,22 @@ const search = async (terms) => {
 	const CreateDate = null;
 	const UpdateDate = null;
 
+  // if value exists then quote string, otherwise send null 
+  ProjectTitle = ProjectTitle ? `'${ProjectTitle}'` : null;
+  ProjectDesc = ProjectDesc ? `'${ProjectDesc}'` : null;
+  ProjectStartDate = ProjectStartDate ? `'${ProjectStartDate}'` : null;
+  ProjectEndDate = ProjectEndDate ? `'${ProjectEndDate}'` : null;
+
+
   try {
     const result = await db.query(
       `CALL usp_Projects_Search(
         ${ProjectID},
         ${ObjectiveID},
-        '${ProjectTitle}',
-        '${ProjectDesc}',
-        '${ProjectStartDate}',
-        '${ProjectEndDate}',
+        ${ProjectTitle},
+        ${ProjectDesc},
+        ${ProjectStartDate},
+        ${ProjectEndDate},
         ${ProjectStatusID},
         null,
         null,
@@ -39,8 +46,6 @@ const search = async (terms) => {
         ${OrgID}
       );
 		`);
-		console.log(ProjectID);
-		console.log(result)
 
     return result;
 
