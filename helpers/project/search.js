@@ -47,7 +47,7 @@ const search = async (terms) => {
       );
 		`);
 
-    return result;
+    return result[0];
 
   } catch(err) {
     console.log(err)
