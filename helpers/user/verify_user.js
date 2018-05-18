@@ -1,5 +1,5 @@
 
-const db = require('../db');
+const { setSession, query } = require('../db');
 const util = require('util'); 
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
@@ -15,7 +15,7 @@ const verify = async (credentials) => {
       throw 'invalid password';
     }
 
-    const results = await db.query(`SELECT * FROM Users WHERE Email = '${username}'`);
+    const results = await query(`SELECT * FROM Users WHERE Email = '${username}'`);
 
     if(!results.length) {
       throw { statusCode: 401, error: 'invalid email' };
@@ -29,6 +29,7 @@ const verify = async (credentials) => {
     }
 
     const token = jwt.sign({ id: user.UserID }, JWT_SECRET);
+    await setSession(user.UserID, token);
     return { token };
 
   } catch(err) {

@@ -32,13 +32,21 @@ const disconnect = async () => {
 };
 
 // get session from redis
-const getSession = async (token) => await getAsync(token);
+const getSession = async (id, token) => {
+  try {
+    const session = await getAsync(id);
+    if(!session || session != token) throw { statusCode: 401, error: 'invalid token' };
+    return session;
+  } catch(err) {
+    return err
+  }
+};
 
 // set session
 // session Time To Live in seconds can be configured in config file
-const setSession = async (userId, token) => await client.setAsync(userId, token, 'EX', SESSION_TTL_SECONDS);
+const setSession = async (userId, token) => await setAsync(userId, token, 'EX', SESSION_TTL_SECONDS);
 
 // clear all user sessions
-const clearSession = async (userId) => await client.delAsync(userId);
+const clearSession = async (userId) => await delAsync(userId);
 
 module.exports = { query, disconnect, getSession, setSession, clearSession };
