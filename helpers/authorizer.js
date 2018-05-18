@@ -1,6 +1,11 @@
 
+'use strict';
+
+const util = require('util');
 const jwt = require('jsonwebtoken'); 
+const verifyAsync = util.promisify(jwt.verify);
 const { JWT_SECRET } = require('../config/config');
+const { getSession } = require('./db');
 
 const generatePolicy = (principalId, effect, resource) => {
   const authResponse = {};
@@ -19,28 +24,25 @@ const generatePolicy = (principalId, effect, resource) => {
   return authResponse;
 }
 
-const unathorized = { statusCode: 403, error: 'unauthorized'}
-
-const handler = (event, context, cb) => {
+const handler = async (event, context, cb) => {
   
   try {
+    
     const token = event.authorizationToken;
+    const decoded = await verifyAsync(token, JWT_SECRET);
+    const session = await getSession(decoded.id, token);
+    if(session.error) throw 'unauthorized';
 
-    if(!token) {
-      throw unathorized;
-    }
-  
-    jwt.verify(token, JWT_SECRET, (err, decoded) => {
-      if(err) {
-        throw unathorized; 
-      }
-      return cb(null, generatePolicy(decoded.id, 'Allow', event.methodArn))
-    });
+    const result = generatePolicy(decoded.id, 'Allow', event.methodArn);
+    
+    return cb(null, result);
 
-  }
-  catch(err) {
+  } catch(err) {
     return cb(err);
   }
+
 };
 
 module.exports = { handler }
+
+  
