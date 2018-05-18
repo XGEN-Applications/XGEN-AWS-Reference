@@ -41,7 +41,7 @@ Note: Same rules for stage param as for deployment.
 ### tests
 
 - test tool used: [Jest](https://facebook.github.io/jest)
-- run in terminal `npm test` or be specific and run for example `npm test login`
+- run in terminal `npm test -- --runInBand` or be specific and run for example `npm test login`
 
 ### LIST OF TOOLS AND FRAMEWORKS USED
 
