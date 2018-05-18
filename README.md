@@ -20,6 +20,7 @@
 
 - all configuration options can be found inside config/config.js file, which is added to `.gitignore` file in order to avoid commiting secrets to the repository
 - `./config/sample.config.js` file is provided with all required and available settings. add `./config/config.js` file to the same folder, copy configuration from `sample.config.js`, then update values with your own settings. Once again, `config.js` has been added to `.gitignore`, it will not be commited to the git repository. 
+- Redis have key expiration time in seconds. This is used to determine token validity duration time. When token expires it becomes invalid.
 
 ### deploy to aws
 
@@ -49,6 +50,7 @@ Note: Same rules for stage param as for deployment.
 - [NodeJS](https://nodejs.org/en/)
 - [Serverless](https://serverless.com/)
 - [Jest](https://facebook.github.io/jest/)
+- [Redis](https://redis.io)
 
 
 ### PROJECT FOLDER/FILES ORGANIZATION
