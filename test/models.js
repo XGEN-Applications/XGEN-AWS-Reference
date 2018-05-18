@@ -7,13 +7,35 @@ const validUser = {
 }
 
 const invalidEmail = {
-  username: '_test@example.com',
-  password: 'coolpass'
+  username: '_testexample.com',
+	password: 'coolpass',
+	firstName: 'Valid',
+  lastName: 'User'
 }
 
 const invalidPassword = {
   username: 'test@example.com',
-  password: 'sdasad'
+	password: 'sdasd'
+}
+
+const shortPassword = {
+  username: 'test@example.com',
+	password: 'sdad',
+	firstName: 'Valid',
+  lastName: 'User'
+}
+
+
+const invalidFirstName = {
+  username: 'test@example.com',
+  password: 'coolpass',
+  lastName: 'User'
+}
+
+const invalidLastName = {
+  username: 'test@example.com',
+  password: 'coolpass',
+  firstName: 'Valid',
 }
 
 const invalidToken = 'aaabbbcccdddeeefffggg';
@@ -36,4 +58,13 @@ const validProject = {
 }
 
 
-module.exports = { validUser, invalidEmail, invalidPassword, invalidToken, validProject };
+module.exports = { 
+	validUser, 
+	invalidEmail, 
+	invalidPassword, 
+	invalidFirstName,
+	invalidLastName,
+	invalidToken, 
+	validProject, 
+	shortPassword 
+};

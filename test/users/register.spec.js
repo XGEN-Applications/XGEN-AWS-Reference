@@ -1,38 +1,6 @@
 const register = require('../../helpers/user/add_user');
 const db = require('../../helpers/db');
-
-const validUser = {
-  username: 'test@example.com',
-  password: 'coolpass',
-  firstName: 'Valid',
-  lastName: 'User'
-}
-
-const invalidEmail = {
-  username: 'test  example.com',
-  password: 'coolpass',
-  firstName: 'Valid',
-  lastName: 'User'
-}
-
-const invalidPassword = {
-  username: 'test@example.com',
-  password: 'cool',
-  firstName: 'Valid',
-  lastName: 'User'
-}
-
-const invalidFirstName = {
-  username: 'test@example.com',
-  password: 'coolpass',
-  lastName: 'User'
-}
-
-const invalidLastName = {
-  username: 'test@example.com',
-  password: 'coolpass',
-  firstName: 'Valid',
-}
+const { validUser, invalidFirstName, invalidLastName, invalidEmail, shortPassword } = require('../models');
 
 afterAll(async () => await db.disconnect());
 
@@ -51,7 +19,7 @@ test('invalid email', async () => {
 });
 
 test('password too short', async () => {
-  const result = await register(invalidPassword);
+  const result = await register(shortPassword);
   expect(result).not.toBe(null);
   expect(result).toHaveProperty('error');
   expect(result.error).toBe('password too short');

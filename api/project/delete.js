@@ -7,7 +7,6 @@ const handler = async (event, context) => {
   context.callbackWaitsForEmptyEventLoop = false;
   const { id } = event.path;
   try {
-    if(!id) throw {statusCode: 400, error: 'you must provide id'};
     const data = await deleteProject(id);
     return response(200, data);
   } catch(err) {

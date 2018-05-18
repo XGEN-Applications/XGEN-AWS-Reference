@@ -4,7 +4,11 @@ const get = async (id) => {
 
   try {
     // if ID return single project, else return all projects
-    const result = id ? await db.query(`CALL usp_Projects_Get(${id})`) : await db.query(`CALL usp_Projects_GetAll()`);;
+    const result = id ? await db.query(`CALL usp_Projects_Get(${id})`) : await db.query(`CALL usp_Projects_GetAll()`);
+    if(id) {
+      // if ID is present return single doc
+      return !!result.length ? result[0][0] : {};
+    }
     return !!result.length ? result[0] : [];
   } catch(err) {
     return {
@@ -123,12 +127,13 @@ const update = async (project) => {
 const deleteProject = async (id) => {
 
   try {
+    if(!id) throw {statusCode: 400, error: 'you must provide id'};
     await db.query(`CALL usp_Projects_Delete(${id})`);
     return 'success';
   } catch(err) {
     return {
       statusCode: err.statusCode || 500, 
-      error: 'server error'
+      error: error || 'server error'
     }
   }
 
