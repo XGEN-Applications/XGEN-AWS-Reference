@@ -29,7 +29,7 @@ const verify = async (credentials) => {
     }
 
     const token = jwt.sign({ id: user.UserID }, JWT_SECRET);
-    await setSession(user.UserID, token);
+    setSession(user.UserID, token);
     return { token };
 
   } catch(err) {

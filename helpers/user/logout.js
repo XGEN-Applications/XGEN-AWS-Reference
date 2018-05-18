@@ -14,11 +14,17 @@ const logout = async (token) => {
     
     const { statusCode, error} = await getSession(decoded.id, token);
     if(error) throw { statusCode, error};
-    
+
     await clearSession(decoded.id);
     return 'success';
 
   } catch(err) {
+    if(err.name == 'JsonWebTokenError') {
+      err = {
+        statusCode: 401,
+        error: 'invalid token'
+      }
+    }
     return {
       statusCode: err.statusCode || 500, 
       error: err.error || 'server error'

@@ -1,22 +1,28 @@
 const getUser = require('../../helpers/user/get_user');
 const register = require('../../helpers/user/add_user');
 const login = require('../../helpers/user/verify_user');
-const db = require('../../helpers/db');
+const logout = require('../../helpers/user/logout');
+const { query, disconnect } = require('../../helpers/db');
 const { validUser } = require('../models');
 const { JWT_SECRET } = require('../../config/config');
 const jwt = require('jsonwebtoken'); 
+const util = require('util');
+const verifyAsync = util.promisify(jwt.verify);
 
 let id = 0;
+let token = '';
 beforeAll(async () => {
   await register(validUser);
-  const { token } = await login(validUser);
-  const decoded = jwt.verify(token, JWT_SECRET);
-  id = decoded.id;
+  const result = await login(validUser);
+  token = result.token;
+  const decoded = await verifyAsync(token, JWT_SECRET);
+  id = decoded.id
 });
 
 afterAll(async () => {
-  await db.query(`DELETE FROM Users WHERE Email='test@example.com'`);
-  await db.disconnect();
+  await logout(token);
+  await query(`DELETE FROM Users WHERE Email='test@example.com'`);
+  await disconnect();
 });
 
 test('get user data', async () => {

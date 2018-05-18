@@ -23,7 +23,7 @@ pool.query = util.promisify(pool.query);
 pool.end = util.promisify(pool.end);
 
 // connect, getConnection, query => all in one
-const query = async query => await pool.query(query);
+const query = async qry => await pool.query(qry);
 
 // close pool and redis gracefully 
 const disconnect = async () => {
