@@ -7,7 +7,12 @@ const config = {
       "password": "strongpassword",
       "database": "test",
       "multipleStatements": true
-    }
+    },
+    "REDIS": {
+      "host": "localhost",
+      "port":6379
+    },
+    "SESSION_TTL_SECONDS": 3600
   }
   
   module.exports = config;
