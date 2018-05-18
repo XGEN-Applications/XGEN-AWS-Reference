@@ -15,6 +15,7 @@
 - run in terminal `npm install -g serverless`
 - clone this repository
 - inside project root folder run in terminal `npm install`
+- install [Redis](https://redis.io/topics/quickstart)
 
 ### configuration 
 
@@ -65,3 +66,115 @@ Note: Same rules for stage param as for deployment.
 - `./helpers/db.js` mysql/aurora connection pool shared by all lambdas
 - `./helpers/authorizer.js` functions that handles authorization based on user JWT session 
 - `./helpers/parse_response` Lambda API requires that all response objects contains JSON with statusCode and body. It returns formated response with statusCode, header and body that contains stringified data object passed to the function. 
+
+### available endpoints
+
+Default offline API link is [http://localhost:3000](http://localhost:3000). When you deploy to AWS, you will get the generated link for the endpoints. You can use that link or connect AWS Route53 with the custom domain.
+
+- POST **{your_aws_url_or_localhost}/users/register**
+
+```
+Accepts JSON body {
+  "username",
+  "password",
+  "firstName",
+  "lastName"
+} 
+
+Register user.
+```
+
+- POST **{your_aws_url_or_localhost}/users/login**
+
+```
+Accepts JSON body {
+  "username",
+  "password"
+} 
+
+Login user, returns token.
+```
+
+- GET **{your_aws_url_or_localhost}/users/current**
+
+```
+Accepts header with token returned from login {
+  "Authorization"
+} 
+
+Returns currently logged in user.
+```
+
+- GET **{your_aws_url_or_localhost}/projects**
+
+```
+Accepts header with token returned from login {
+  "Authorization"
+} 
+
+Returns all projects.
+```
+
+- GET **{your_aws_url_or_localhost}/projects/{id}**
+
+```
+Accepts header with token returned from login {
+  "Authorization"
+} 
+
+Returns single project when ProjectID is passed as path parameter.
+```
+
+
+- POST **{your_aws_url_or_localhost}/projects**
+
+```
+Accepts header with token returned from login {
+  "Authorization"
+} 
+
+Accepts JSON body {
+  Project Document
+}  
+
+Creates project, returns ProjectID.
+```
+
+- PUT **{your_aws_url_or_localhost}/projects**
+
+```
+Accepts header with token returned from login {
+  "Authorization"
+}
+
+Accepts JSON body {
+  Project Document with id
+}  
+
+Updates project.
+```
+
+- DELETE **{your_aws_url_or_localhost}/projects/{id}**
+
+```
+Accepts header with token returned from login {
+  "Authorization"
+} 
+
+Deletes single project when ProjectID is passed as path parameter.
+```
+
+
+- POST **{your_aws_url_or_localhost}/projects/search**
+
+```
+Accepts header with token returned from login {
+  "Authorization"
+} 
+
+Accepts JSON body {
+  Search criteria fields
+}  
+
+Search project by given criteria. Returns list of projects.
+```
