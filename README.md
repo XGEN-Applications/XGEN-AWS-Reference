@@ -29,6 +29,8 @@
 
 Note: You can have different environments. --stage param can be dev, production or staging 
 
+Every stage you deploy to with serverless.yml using the aws provider is a single AWS CloudFormation stack. This is where your AWS Lambda functions and their event configurations are defined and it's how they are deployed. When you add resources those resources are added into your CloudFormation stack upon serverless deploy.
+
 ### uninstall from aws 
 
 - run in terminal `sls remove --stage dev`
