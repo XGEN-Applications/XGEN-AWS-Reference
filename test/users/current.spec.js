@@ -21,7 +21,7 @@ beforeAll(async () => {
 
 afterAll(async () => {
   await logout(token);
-  await query(`DELETE FROM Users WHERE Email='test@example.com'`);
+  await query(`DELETE FROM Users WHERE Email='${validUser.username}'`);
   await disconnect();
 });
 

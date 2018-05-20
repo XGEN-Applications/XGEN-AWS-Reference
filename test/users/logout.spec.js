@@ -12,7 +12,7 @@ beforeAll(async () => {
 });
 
 afterAll(async () => {
-  await db.query(`DELETE FROM Users WHERE Email='test@example.com'`);
+  await db.query(`DELETE FROM Users WHERE Email='${validUser.username}'`);
   await db.disconnect();
 });
 

@@ -1,5 +1,5 @@
 const bcrypt = require('bcrypt');
-const db = require('../db');
+const { query } = require('../db');
 
 const hashPassword = async (password) => {
   return await bcrypt.hash(password, 16);
@@ -10,6 +10,11 @@ const validEmail = (email) => {
   return emailRegEx.test(email);
 }
 
+const findUserByEmail = async (email) => {
+  const result = await query(`SELECT count(*) as count FROM Users WHERE Email='${email}'`);
+  return result[0];
+}
+
 const register = async (user) => {
 
   try {
@@ -18,6 +23,11 @@ const register = async (user) => {
     
     if(!validEmail(username)) {
       throw { statusCode: 400, error: 'invalid email'};
+    }
+
+    const existingUsers = await findUserByEmail(username);
+    if(existingUsers.count > 0) {
+      throw { statusCode: 409, error: 'email exists' };
     }
 
     if(!password || password.length < 6) {
@@ -33,7 +43,7 @@ const register = async (user) => {
     }
 
     const hash = await hashPassword(password);
-    const result = await db.query(`INSERT INTO Users (Email, PWD, FirstName, LastName) VALUES ('${username}', '${hash}', '${firstName}', '${lastName}')`);
+    const result = await query(`INSERT INTO Users (Email, PWD, FirstName, LastName) VALUES ('${username}', '${hash}', '${firstName}', '${lastName}')`);
     return {
       id: result.insertId
     }

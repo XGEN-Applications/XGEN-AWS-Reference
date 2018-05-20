@@ -1,8 +1,12 @@
 const register = require('../../helpers/user/add_user');
-const db = require('../../helpers/db');
+const { query, disconnect } = require('../../helpers/db');
 const { validUser, invalidFirstName, invalidLastName, invalidEmail, shortPassword } = require('../models');
 
-afterAll(async () => await db.disconnect());
+afterEach(async () => await query(`DELETE FROM Users WHERE Email='${validUser.username}'`));
+
+afterAll(async () => {
+  await disconnect()
+});
 
 test('register valid user', async () => {
   const result = await register(validUser);
@@ -37,4 +41,12 @@ test('last name must have value', async () => {
   expect(result).not.toBe(null);
   expect(result).toHaveProperty('error');
   expect(result.error).toBe('last name must have value');
+});
+
+test('email exists', async () => {
+  await register(validUser);
+  const result = await register(validUser);
+  expect(result).not.toBe(null);
+  expect(result).toHaveProperty('error');
+  expect(result.error).toBe('email exists');
 });
