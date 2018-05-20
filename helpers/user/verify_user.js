@@ -3,7 +3,7 @@ const { setSession, query } = require('../db');
 const util = require('util'); 
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const { JWT_SECRET } = require('../../config/config');
+const { JWT_SECRET, SESSION_TTL_SECONDS } = require('../../config/config');
 
 const verify = async (credentials) => {
 
@@ -28,7 +28,10 @@ const verify = async (credentials) => {
       throw { statusCode: 401, error: 'invalid password' };
     }
 
-    const token = jwt.sign({ id: user.UserID }, JWT_SECRET);
+    const token = jwt.sign({ 
+      id: user.UserID, 
+      exp: Math.floor(Date.now() / 1000) + SESSION_TTL_SECONDS 
+    }, JWT_SECRET);
     setSession(user.UserID, token);
     return { token };
 
