@@ -25,7 +25,7 @@
 
 ### deploy to aws
 
-- run in terminal `sls deploy --stage dev`
+- run in terminal `serverless deploy --stage dev`
 
 Note: You can have different environments. --stage param can be dev, production or staging 
 
@@ -33,13 +33,13 @@ Every stage you deploy to with serverless.yml using the aws provider is a single
 
 ### uninstall from aws 
 
-- run in terminal `sls remove --stage dev`
+- run in terminal `serverless remove --stage dev`
 
 Note: Same rules for stage param as for deployment. 
 
 ### invoke functions locally
 
-- run in terminal `sls offline start`
+- run in terminal `serverless offline start`
 - use [Postman](https://www.getpostman.com/) or similar tool to invoke functions on the localhost
 
 ### tests
