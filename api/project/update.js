@@ -8,6 +8,7 @@ const handler = async (event, context) => {
   const project = event.body;
   try {
     const data = await update(project);
+    if(data.error) throw { statusCode: data.statusCode, error: data.error }
     return response(200, data);
   } catch(err) {
     const { statusCode, error } = err;   
