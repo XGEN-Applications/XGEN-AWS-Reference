@@ -10,6 +10,7 @@ const handler = async (event, context) => {
 
     const project = event.body;
     const data = await add(project);
+    if(data.error) throw { statusCode: data.statusCode, error: data.error }
     return response(200, data);
 
   } catch(err) {
