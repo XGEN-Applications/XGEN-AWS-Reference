@@ -4,7 +4,7 @@ const get = async (id) => {
 
   try {
     // if ID return single project, else return all projects
-    const result = id ? await query(`CALL usp_Projects_Get(${id})`) : await db.query(`CALL usp_Projects_GetAll()`);
+    const result = id ? await query(`CALL usp_Projects_Get(${id})`) : await query(`CALL usp_Projects_GetAll()`);
     if(id) {
       // if ID is present return single doc
       return !!result.length ? result[0][0] : {};
