@@ -16,6 +16,7 @@
 - clone this repository
 - inside project root folder run in terminal `npm install`
 - install [Redis](https://redis.io/topics/quickstart)
+- install [serverless domain manager](https://github.com/amplify-education/serverless-domain-manager) (npm install serverless-domain-manager --save-dev)
 
 ### configuration 
 
