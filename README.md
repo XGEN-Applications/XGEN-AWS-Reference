@@ -26,6 +26,7 @@
 
 ### deploy to aws
 
+- run in terminal 'serverless create_domain'
 - run in terminal `serverless deploy --stage dev`
 
 Note: You can have different environments. --stage param can be dev, production or staging 
@@ -35,6 +36,7 @@ Every stage you deploy to with serverless.yml using the aws provider is a single
 ### uninstall from aws 
 
 - run in terminal `serverless remove --stage dev`
+- run in terminal 'serverless delete_domain'
 
 Note: Same rules for stage param as for deployment. 
 

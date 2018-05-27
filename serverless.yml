@@ -21,7 +21,18 @@ region: us-east-1
 # offline plugin is for local test
 plugins:
   - serverless-offline
+  - serverless-domain-manager
+  
+# serverless domain-manager configuration
+custom:
+  customDomain:
+    domainName: 'api.planhuddle.com'
+    basePath: ''
+    stage: 'production'
+    certificateName: '*.planhuddle.com'
+    createRoute53Record: true
 
+    
 # lambda functions
 
 functions:
