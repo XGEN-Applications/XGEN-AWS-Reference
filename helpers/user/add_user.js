@@ -2,7 +2,7 @@ const bcrypt = require('bcrypt');
 const { query } = require('../db');
 
 const hashPassword = async (password) => {
-  return await bcrypt.hash(password, 16);
+  return await bcrypt.hash(password, 10);
 }
 
 const validEmail = (email) => {

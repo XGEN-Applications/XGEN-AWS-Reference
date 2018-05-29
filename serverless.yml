@@ -11,6 +11,13 @@ service: api
 provider:
   name: aws
   runtime: nodejs8.10
+  vpc:
+    securityGroupIds:
+      - ${self:custom.network.SECURITY_GROUP_1}
+    subnetIds:
+      - ${self:custom.network.SUBNET_ID_1}
+      - ${self:custom.network.SUBNET_ID_2}
+      - ${self:custom.network.SUBNET_ID_3}
 
 # you can overwrite defaults here
 # stage dev as default but can be overriden with sls deploy --stage [stage name]
@@ -25,6 +32,7 @@ plugins:
   
 # serverless domain-manager configuration
 custom:
+  network: ${file(./config/vpc.json)}
   customDomain:
     domainName: 'api.planhuddle.com'
     basePath: ''

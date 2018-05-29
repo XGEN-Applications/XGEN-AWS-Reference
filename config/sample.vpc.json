@@ -1,0 +1,6 @@
+{
+  "SECURITY_GROUP_1": "sg-xxxxxxxxxxxx",
+  "SUBNET_ID_1": "subnet-xxxxxxxxxxxx",
+  "SUBNET_ID_2": "subnet-xxxxxxxxxxxxx",
+  "SUBNET_ID_3": "subnet-xxxxxxxxxxxxxxx"
+}
