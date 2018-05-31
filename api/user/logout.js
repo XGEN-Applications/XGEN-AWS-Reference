@@ -12,8 +12,8 @@ const handler = async (event, context) => {
     return response(200, result);
   }
   catch (err) {
-    const { statusCode, error } = err;   
-    return response(statusCode || 500, error || 'server error');
+    const { statusCode, message } = err;   
+    return response(statusCode || 500, message || 'server error' );
   }
 
 };

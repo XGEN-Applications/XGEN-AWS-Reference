@@ -24,21 +24,17 @@ const generatePolicy = (principalId, effect, resource) => {
   return authResponse;
 }
 
-const handler = async (event, context, cb) => {
+const handler = async (event, context) => {
   
   try {
-    
     const token = event.authorizationToken;
     const decoded = await verifyAsync(token, JWT_SECRET);
     const session = await getSession(decoded.id, token);
     if(session.error) throw 'unauthorized';
-
     const result = generatePolicy(decoded.id, 'Allow', event.methodArn);
-    
-    return cb(null, result);
-
+    return result;
   } catch(err) {
-    return cb(err);
+    return err;
   }
 
 };

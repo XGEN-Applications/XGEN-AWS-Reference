@@ -1,8 +1,8 @@
-const response = (statusCode, data) => {
+const response = (statusCode, body) => {
   return {
     statusCode,
-    headers: { 'Content-Type': 'text/plain' },
-    body: JSON.stringify(data)
+    headers: { 'Content-Type': 'application/json' },
+    body
   };
 } 
 

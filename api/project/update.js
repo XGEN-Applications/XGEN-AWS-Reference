@@ -10,9 +10,9 @@ const handler = async (event, context) => {
     const data = await update(project);
     if(data.error) throw { statusCode: data.statusCode, error: data.error }
     return response(200, data);
-  } catch(err) {
-    const { statusCode, error } = err;   
-    return response(statusCode || 500, error || 'server error');
+  } catch (err) {
+    const { statusCode, message } = err;   
+    return response(statusCode || 500, message || 'server error' );
   }
 
 };

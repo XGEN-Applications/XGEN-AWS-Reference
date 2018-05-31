@@ -1,5 +1,7 @@
 const bcrypt = require('bcrypt');
 const { query } = require('../db');
+const util = require('util');
+bcrypt.hash = util.promisify(bcrypt.hash);
 
 const hashPassword = async (password) => {
   return await bcrypt.hash(password, 10);
@@ -17,40 +19,39 @@ const findUserByEmail = async (email) => {
 
 const register = async (user) => {
 
-  try {
 
-    const { username, password, firstName, lastName } = user;
-    
-    if(!validEmail(username)) {
-      throw { statusCode: 400, error: 'invalid email'};
-    }
-
-    const existingUsers = await findUserByEmail(username);
-    if(existingUsers.count > 0) {
-      throw { statusCode: 409, error: 'email exists' };
-    }
-
-    if(!password || password.length < 6) {
-      throw { statusCode: 400, error: 'password too short' };
-    }
-
-    if(!firstName) {
-      throw { statusCode: 400, error: 'first name must have value' };
-    }
-
-    if(!lastName) {
-      throw { statusCode: 400, error: 'last name must have value' };
-    }
-
-    const hash = await hashPassword(password);
-    const result = await query(`INSERT INTO Users (Email, PWD, FirstName, LastName) VALUES ('${username}', '${hash}', '${firstName}', '${lastName}')`);
-    return {
-      id: result.insertId
-    }
-
-  } catch(err) {
-    return err;
+  const { username, password, firstName, lastName } = user;
+  
+  if(!validEmail(username)) {
+    throw { statusCode: 400, error: 'invalid email'};
   }
+
+  const existingUsers = await findUserByEmail(username);
+  if(existingUsers.count > 0) {
+    throw { statusCode: 409, error: 'email exists' };
+  }
+
+  if(!password || password.length < 6) {
+    throw { statusCode: 400, error: 'password too short' };
+  }
+
+  if(!firstName) {
+    throw { statusCode: 400, error: 'first name must have value' };
+  }
+
+  if(!lastName) {
+    throw { statusCode: 400, error: 'last name must have value' };
+  }
+  console.log('before hash')
+
+  const hash = await hashPassword(password);
+  console.log('insert USER')
+  const result = await query(`INSERT INTO Users (Email, PWD, FirstName, LastName) VALUES ('${username}', '${hash}', '${firstName}', '${lastName}')`);
+  return {
+    id: result.insertId
+  }
+
+
     
 
 }

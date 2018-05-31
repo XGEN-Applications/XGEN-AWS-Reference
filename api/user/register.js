@@ -9,13 +9,12 @@ const handler = async (event, context) => {
 
   try {
     const user = event.body;
-    const { statusCode, error } = await register(user);
-    if(error) throw { statusCode, error };
+    const result = await register(user);
     return response(200, 'success');
   }
   catch (err) {
-    const { statusCode, error } = err;   
-    return response(statusCode, error);
+    const { statusCode, message } = err;   
+    return response(statusCode || 500, message || 'server error' );
   }
 
 };
