@@ -31,9 +31,11 @@ const handler = async (event, context) => {
     const decoded = await verifyAsync(token, JWT_SECRET);
     const session = await getSession(decoded.id, token);
     if(session.error) throw 'unauthorized';
-    const result = generatePolicy(decoded.id, 'Allow', event.methodArn);
+    console.log(event.methodArn);
+    const result = generatePolicy(decoded.id, 'Allow', 'arn:aws:execute-api:us-east-1:892642394729:d5xmqy1jv4/production/*');
     return result;
   } catch(err) {
+    console.log(err)
     return err;
   }
 
