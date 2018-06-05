@@ -1,4 +1,4 @@
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const { query } = require('../db');
 const util = require('util');
 bcrypt.hash = util.promisify(bcrypt.hash);
@@ -21,25 +21,25 @@ const register = async (user) => {
 
 
   const { username, password, firstName, lastName } = user;
-  
-  if(!validEmail(username)) {
-    throw { statusCode: 400, error: 'invalid email'};
+
+  if (!validEmail(username)) {
+    throw { statusCode: 400, error: 'invalid email' };
   }
 
   const existingUsers = await findUserByEmail(username);
-  if(existingUsers.count > 0) {
+  if (existingUsers.count > 0) {
     throw { statusCode: 409, error: 'email exists' };
   }
 
-  if(!password || password.length < 6) {
+  if (!password || password.length < 6) {
     throw { statusCode: 400, error: 'password too short' };
   }
 
-  if(!firstName) {
+  if (!firstName) {
     throw { statusCode: 400, error: 'first name must have value' };
   }
 
-  if(!lastName) {
+  if (!lastName) {
     throw { statusCode: 400, error: 'last name must have value' };
   }
   console.log('before hash')
@@ -52,7 +52,7 @@ const register = async (user) => {
   }
 
 
-    
+
 
 }
 
